@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import django_heroku
 from datetime import timedelta
 from pathlib import Path
-
+from decouple import config
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 MEDIA_DIR = BASE_DIR / "media"
@@ -22,13 +22,12 @@ MEDIA_DIR = BASE_DIR / "media"
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-2_96dnj1b4q)n6#mk9b(e5_g)cv(5&e%f0@p-jkyq1j+o)avpr"
+SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config("DEBUG", default=False, cast=bool)
 
-ALLOWED_HOSTS = [
-    "https://netflix-clone-safwan.netlify.app/", "localhost:3000/"]
+ALLOWED_HOSTS = config("ALLOWED_HOSTS", default='localhost').split(" ")
 
 
 # Application definition
@@ -142,7 +141,7 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=24 * 60),
 }
 
-STRIPE_SECRET_KEY = "sk_test_51KEMJiCbpnVr0Dc6d9tz96BrgkTegBw08XHptohKmUCjNxIh1PuuxbisUTrcbQxOgmmssD7jZ4s427OvenZvXhY900AQR5vN9J"
+STRIPE_SECRET_KEY = config("STRIPE_SECRET_KEY")
 
 
 # HTTPS settings
