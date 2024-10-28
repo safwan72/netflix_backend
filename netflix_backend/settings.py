@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
-import django_heroku
 from datetime import timedelta
 from pathlib import Path
 from decouple import config
@@ -25,9 +24,9 @@ MEDIA_DIR = BASE_DIR / "media"
 SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config("DEBUG", default=False, cast=bool)
+DEBUG = True
 
-ALLOWED_HOSTS = config("ALLOWED_HOSTS", default='localhost').split(" ")
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -145,16 +144,12 @@ STRIPE_SECRET_KEY = config("STRIPE_SECRET_KEY")
 
 
 # HTTPS settings
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-SECURE_SSL_REDIRECT = True
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
+# SECURE_SSL_REDIRECT = True
 
 
 # HSTS settings HTTP Strict Transport Settings
 SECURE_HSTS_SECONDS = 31536000  # 1 year
 SECURE_HSTS_PRELOAD = True
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-
-
-# Django-Heroku
-django_heroku.settings(locals())
